@@ -44,20 +44,20 @@ var questions = [
     },
     question5 = {
         question: "Which famous singer cut class so often in High School she got the nickname \"Mirage\"",
-        correctAnswer: "Mariah Carey",
         incorrect1: "Madonna",
         incorrect2: "Macy Gray",
+        correctAnswer: "Mariah Carey",
         incorrect3: "Mandy Moore",
+        
     }
 ];
-console.log(questions.length);
-console.log(count);
+
 //Timer
 
 function timer(){
 showQuestion = setInterval(displayQuestion, 12000);
 var timerId = setInterval(countdown, 1000); //uses coundown to decrease time by 1 every second
-
+count++;
 var timeLeft = 10;  //sets timer to 30units
 
 //if time is >0, timer decreases by 1
@@ -74,13 +74,6 @@ function countdown() {
 }
 };
 
-  //Game
-
-//shows questions and answers from array one at a time as count increases ----includes shuffle array
-function displayQuestion(){
-    timer();
-
-    //Answer array shuffles responses
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -97,21 +90,50 @@ function shuffle(array) {
     return array;
   }
 
+  //Game
+
+//shows questions and answers from array one at a time as count increases ----includes shuffle array
+function displayQuestion(){
+    timer();
+
+
+    //Answer array shuffles responses
+
+
 //Defines array with answers so they can be shuffled  
 var arr = [questions[count].correctAnswer, questions[count].incorrect1, questions[count].incorrect2, questions[count].incorrect3];
-
-  var shuf = shuffle(arr);
-  console.log(shuf);
-
+console.log('arr', arr)
+shuffle(arr);
        
     $("#questionArea").text(questions[count].question);
 
-    $("#answer1Button").text(shuf[0]);
-    $("#answer4Button").text(shuf[1]); 
-    $("#answer2Button").text(shuf[2]);
-    $("#answer3Button").text(shuf[3]);
+    console.log("shuf0" + arr[0]);
+    console.log("shuf1" + arr[1]);
+    console.log("shuf2" + arr[2]);
+    console.log("shuf3" + arr[3]);
+
     
-    count++;
+    $("#answer1Button").text(arr[0]);
+    $("#answer2Button").text(arr[1]); 
+    $("#answer3Button").text(arr[2]);
+    $("#answer4Button").text(arr[3]);
+    
+
+    // if(shuf[0]===questions[count].correctAnswer){
+    //     console.log("ans1but");
+    // }
+    // if(shuf[1]===questions[count].correctAnswer){
+    //     console.log("ans2but");
+    // }
+    // if(shuf[2]===questions[count].correctAnswer){
+    //     console.log("ans3but");
+    // }
+    // if(shuf[3]===questions[count].correctAnswer){
+    //     console.log("ans4but");
+    // }
+
+    
+
 }
 
 // function nextQuestion(){
