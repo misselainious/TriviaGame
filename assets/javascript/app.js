@@ -5,6 +5,7 @@ $("#gameOver").hide();
 
 //variable to keep track of points
 var points = 0;
+var wrong = 0;
 //variable to loop through question in array
 var count = 0;
 //variable to hold timer for start of game
@@ -15,39 +16,39 @@ var showQuestion;
 //Array of questions for the game
 var questions = [
     question1 = {
-        question: "What celebrity goes by the nickname Tay-Tay?",
-        correctAnswer: "Taylor Swift",
-        incorrect1: "Tina Fey",
-        incorrect2: "Tyra Banks",
-        incorrect3: "Tina Turner",
+        question: "Colonel Sander's highest level of education was:",
+        correctAnswer: "Sixth Grade",
+        incorrect1: "PhD",
+        incorrect2: "High School",
+        incorrect3: "Bachelor's",
     },
     question2 = {
-        question: "Who was the first woman to win a Nobel Prize?",
-        incorrect1: "Amelia Earhart",
-        incorrect2: "Charlotte Bronte",
-        incorrect3: "Susan B. Anthony",
-        correctAnswer: "Marie Curie",
+        question: "Col. Sanders lost most of his money trying to sell an indoor lighting system based on:",
+        incorrect1: "jet fuel",
+        incorrect2: "electricty",
+        incorrect3: "vegetable oil",
+        correctAnswer: "acetylene gas",
     },
     question3 = {
-        question: "Which of these women's name was misspelled on their birth certificate and became the name we know them by today?",
-        incorrect1: "Beyonce Knowles",
-        correctAnswer: "Oprah Winfrey",
-        incorrect2: "Halle Berry",
-        incorrect3: "Jordin Sparks",
+        question: "Col. Sanders got in a fight with someone while they were:",
+        incorrect1: "on their horse",
+        correctAnswer: "sitting in a barber chair",
+        incorrect2: "eating a salad",
+        incorrect3: "listening to headphones",
     },
     question4 = {
-        question: "In 2014, this actress was presented with the Presidential Medal of Freedom, the highest civilian honor in the US, by President Barack Obama.",
-        correctAnswer: "Meryl Streep",
-        incorrect1: "Angelina Jolie",
-        incorrect2: "Judi Dench",
-        incorrect3: "Uma Thurman",
+        question: "Among many things, Col. Sanders was a trusted_____ and once used a shotgun to help with a situation.",
+        correctAnswer: "midwife",
+        incorrect1: "dentist",
+        incorrect2: "lawyer",
+        incorrect3: "cat-sitter",
     },
     question5 = {
-        question: "Which famous singer cut class so often in High School she got the nickname \"Mirage\"",
-        incorrect1: "Madonna",
-        incorrect2: "Macy Gray",
-        correctAnswer: "Mariah Carey",
-        incorrect3: "Mandy Moore",
+        question: "For entertainment, Sanders would occasionally take customers around back to listen to a:",
+        incorrect1: "record player",
+        incorrect2: "song he wrote",
+        correctAnswer: "braying jackass",
+        incorrect3: "squealing pig",
         
     }
 ];
@@ -113,26 +114,77 @@ shuffle(arr);
     console.log("shuf3" + arr[3]);
 
     
-    $("#answer1Button").text(arr[0]);
-    $("#answer2Button").text(arr[1]); 
-    $("#answer3Button").text(arr[2]);
-    $("#answer4Button").text(arr[3]);
+    $("#answer1").text(arr[0]);
+    $("#answer2").text(arr[1]); 
+    $("#answer3").text(arr[2]);
+    $("#answer4").text(arr[3]);
     
+//Determining Score
 
-    // if(shuf[0]===questions[count].correctAnswer){
-    //     console.log("ans1but");
-    // }
-    // if(shuf[1]===questions[count].correctAnswer){
-    //     console.log("ans2but");
-    // }
-    // if(shuf[2]===questions[count].correctAnswer){
-    //     console.log("ans3but");
-    // }
-    // if(shuf[3]===questions[count].correctAnswer){
-    //     console.log("ans4but");
-    // }
-
+    if(arr[0]===questions[count].correctAnswer){
+        $("#answer1").click(function(){
+        points++;
+        $("#points").text(points);
+        displayQuestion();
+    });
+}
+else if(arr[0]!==questions[count].correctAnswer){
+    $("#answer1").click(function(){
+        wrong++;
+        $("#wrong").text(wrong);
+    displayQuestion();
     
+});
+}
+    if(arr[1]===questions[count].correctAnswer){
+        // console.log("ans2but");
+        $("#answer2").click(function(){
+            // console.log("click2");
+            points++
+            $("#points").text(points);
+            displayQuestion();
+            });
+    }
+    else if(arr[1]!==questions[count].correctAnswer){
+        $("#answer2").click(function(){
+            wrong++;
+            $("#wrong").text(wrong);
+        displayQuestion();
+    });
+    }
+    if(arr[2]===questions[count].correctAnswer){
+        // console.log("ans3but");
+        $("#answer3").click(function(){
+            // console.log("click3");
+            points++
+            $("#points").text(points);
+            displayQuestion();
+            });
+    }
+    else if(arr[2]!==questions[count].correctAnswer){
+        $("#answer3").click(function(){
+            wrong++;
+            $("#wrong").text(wrong);
+        displayQuestion();
+    });
+    }
+    if(arr[3]===questions[count].correctAnswer){
+        // console.log("ans4but");
+        $("#answer4").click(function(){
+            // console.log("click4");
+            points++
+            $("#points").text(points);
+            displayQuestion();
+            });
+    }
+    else if(arr[3]!==questions[count].correctAnswer){
+        $("#answer4").click(function(){
+            wrong++;
+            $("#wrong").text(wrong);
+        displayQuestion();
+    });
+    }
+
 
 }
 
@@ -146,37 +198,12 @@ shuffle(arr);
 
 function startGame() {
     displayQuestion();
-    
+    $("#startButton").hide();
 
 //Game Over
 
 
-//Determining Score
 
-
-$("#answer1Button").click(function(){
-if($("#answer1Button")===questions[count].correctAnswer){
-    console.log("Win!");
-}
-
-});
-
-$("#answer2Button").click(function(){
-console.log("click2");
-
-});
-
-$("#answer3Button").click(function(){
-console.log("click3");
-});
-
-$("#answer4Button").click(function(){
-console.log("click4");
-// if($("#answer4Button")===(questions.question1.correctAnswer)){
-//     console.log("correctAnswer");
-// }else(console.log("incorrect"));
-
-});
 
 
 
@@ -188,8 +215,6 @@ function stopGame() {
 }
 
 $("#startButton").click(startGame);
-
-
 
 
 

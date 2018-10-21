@@ -1,0 +1,42 @@
+body{
+    background-image: url(../images/the\ Colonel.jpg);
+    background-size: 100%;
+}
+#questionArea{
+    font-size: 30px;
+    padding: 20px;
+}
+#drumstick{
+    width: 250px;
+    height: 150px;
+}
+#answer1Button,
+#answer2Button,
+#answer3Button,
+#answer4Button,{
+    position: relative;
+}
+#answer1{
+    position: absolute;
+    top: 130px;
+    font-size: 40px;
+    padding: 30px;
+}
+#answer2{
+    position: absolute;
+    top: 290px;
+    font-size: 40px;
+    padding: 30px;
+}
+#answer3{
+    position: absolute;
+    top: 450px;
+    font-size: 40px;
+    padding: 30px;
+}
+#answer4{
+    position: absolute;
+    top: 610px;
+    font-size: 40px;
+    padding: 30px;
+}
