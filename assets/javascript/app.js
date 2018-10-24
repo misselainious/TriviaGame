@@ -54,29 +54,21 @@ $(document).ready(function () {
     ];
     
     //Timer
-   //  Set our number counter to 100.
+   //  Set our number counter to x;
    var number = 5;
 
-   //  Variable that will hold our interval ID when we execute
-   //  the "run" function
+   //  Variable that will hold interval while executing function
    var intervalId;
 
-//    //  When the stop button gets clicked, run the stop function.
-//    $("#stop").on("click", stop);
 
-//    //  When the resume button gets clicked, execute the run function.
-//    $("#resume").on("click", run);
-
-   //  The run function sets an interval
-   //  that runs the decrement function once a second.
-   //  *****BUG FIX******** 
-   //  Clearing the intervalId prior to setting our new intervalId will not allow multiple instances.
    function run() {
+    nextQuestion();
      clearInterval(intervalId);
      intervalId = setInterval(decrement, 1000);
      timerCount++;
+  
      console.log("timer count: " + timerCount);
-     if (timerCount === questions.length+1){
+     if (timerCount === questions.length){
         endGame();
     };
    }
@@ -89,13 +81,14 @@ $(document).ready(function () {
 
      //  Show the number in the #show-number tag.
      $("#timer").html("<h2>" + number + "</h2>");
+     console.log("number: " + number)
 
 
      //  Once number hits zero...
-     if (number === -1) {
+     if (number === 0) {
 
        //  ...run the stop function.
-       stop();
+       nextQuestion();
 
      }
    }
@@ -130,9 +123,9 @@ $(document).ready(function () {
     // };
     
     //loop through questions
+
     function showQuestion(){
         number =6;
-    run();
         var arr = [questions[count].correctAnswer, questions[count].incorrect1, questions[count].incorrect2, questions[count].incorrect3];
   
     shuffle(arr);
@@ -150,14 +143,14 @@ $(document).ready(function () {
         $("#answer1Button").click(function(){
         points++;
         $("#points").text(points);
-        nextQuestion();
+        run();
     });
     }
     else if(arr[0]!==questions[count].correctAnswer){
     $("#answer1Button").click(function(){
         wrong++;
         $("#wrong").text(wrong);
-    nextQuestion();
+        run();
     
     });
     }
@@ -165,52 +158,51 @@ $(document).ready(function () {
         // console.log("ans2but");
         $("#answer2Button").click(function(){
             // console.log("click2");
-            points++
+            points++;
             $("#points").text(points);
-            nextQuestion();
+            run();
             });
     }
     else if(arr[1]!==questions[count].correctAnswer){
         $("#answer2Button").click(function(){
             wrong++;
             $("#wrong").text(wrong);
-            nextQuestion();
+            run();
     });
     }
     if(arr[2]===questions[count].correctAnswer){
         // console.log("ans3but");
         $("#answer3Button").click(function(){
             // console.log("click3");
-            points++
+            points++;
             $("#points").text(points);
-            nextQuestion();
+            run();
             });
     }
     else if(arr[2]!==questions[count].correctAnswer){
         $("#answer3Button").click(function(){
             wrong++;
             $("#wrong").text(wrong);
-            nextQuestion();
+            run();
     });
     }
     if(arr[3]===questions[count].correctAnswer){
         // console.log("ans4but");
         $("#answer4Button").click(function(){
             // console.log("click4");
-            points++
+            points++;
             $("#points").text(points);
-            nextQuestion();
+            run();
             });
     }
     else if(arr[3]!==questions[count].correctAnswer){
         $("#answer4Button").click(function(){
             wrong++;
             $("#wrong").text(wrong);
-            nextQuestion();
+            run();
     });
     }
-    console.log(count);
-    console.log(questions.length);
+ 
     
     if (count === questions.length){
         endGame();
@@ -221,13 +213,12 @@ $(document).ready(function () {
     function nextQuestion(){
         count++;
         showQuestion();
-        // timer();
         
     }
     
     function startGame() {
         showQuestion();
-        holdQuestion = setInterval(nextQuestion, 6000);
+        run();
     }
     
 

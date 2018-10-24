@@ -6,11 +6,18 @@ body{
     font-size: 30px;
     padding: 20px;
 }
+#drumstick{
+    .btn:focus,.btn:active, .btn:click {
+        outline: none !important;
+        box-shadow: none;
+     }
+}
 #but1,
 #but2,
 #but3,
 #but4{
     margin: 20px;
+    outline: none;
 }
 #drumstick{
     width: 150px;
@@ -25,6 +32,7 @@ button{
 #answer3Button,
 #answer4Button,{
     position: relative;
+    
     }
 #answer1{
     position: absolute;
