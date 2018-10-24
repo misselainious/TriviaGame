@@ -6,37 +6,51 @@ body{
     font-size: 30px;
     padding: 20px;
 }
+#but1,
+#but2,
+#but3,
+#but4{
+    margin: 20px;
+}
 #drumstick{
-    width: 250px;
-    height: 150px;
+    width: 150px;
+    height: 90px;
+}
+button{
+    padding: 0px;
+    border: none;
 }
 #answer1Button,
 #answer2Button,
 #answer3Button,
 #answer4Button,{
     position: relative;
-}
+    }
 #answer1{
     position: absolute;
     top: 130px;
+    left: 250px;
     font-size: 40px;
     padding: 30px;
 }
 #answer2{
     position: absolute;
     top: 290px;
+    left: 250px;
     font-size: 40px;
     padding: 30px;
 }
 #answer3{
     position: absolute;
     top: 450px;
+    left: 250px;
     font-size: 40px;
     padding: 30px;
 }
 #answer4{
     position: absolute;
     top: 610px;
+    left: 250px;
     font-size: 40px;
     padding: 30px;
 }

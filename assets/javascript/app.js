@@ -2,12 +2,15 @@ $(document).ready(function () {
 
     //Variable for points, incorrect, unanswered.
     var points = 0;
-    var incorrect = 0;
+    var wrong = 0;
     var unanswered = 0;
     
     //var for counting which question we are on.
-    count = 0;
+    var count = 0;
     var holdQuestion;
+    var number = 5;
+    var intervalId;
+    var timerCount = 0;
     
     $("#startButton").click(startGame);
     //Array of Questions 
@@ -51,64 +54,185 @@ $(document).ready(function () {
     ];
     
     //Timer
-    function timer(){
-    var timerId = setInterval(countdown, 1000); //uses coundown to decrease time by 1 every second
-    var timeLeft = 10;  //sets timer to 10units
-    
-    //if time is >0, timer decreases by 1
-    function countdown() {
-    
-        if (timeLeft == -1) {
-            clearTimeout(timerId);
-            
-        } else {
-            $("#timer").text(timeLeft + ' seconds remaining');
-            timeLeft--;
-        }
-    }
+   //  Set our number counter to 100.
+   var number = 5;
+
+   //  Variable that will hold our interval ID when we execute
+   //  the "run" function
+   var intervalId;
+
+//    //  When the stop button gets clicked, run the stop function.
+//    $("#stop").on("click", stop);
+
+//    //  When the resume button gets clicked, execute the run function.
+//    $("#resume").on("click", run);
+
+   //  The run function sets an interval
+   //  that runs the decrement function once a second.
+   //  *****BUG FIX******** 
+   //  Clearing the intervalId prior to setting our new intervalId will not allow multiple instances.
+   function run() {
+     clearInterval(intervalId);
+     intervalId = setInterval(decrement, 1000);
+     timerCount++;
+     console.log("timer count: " + timerCount);
+     if (timerCount === questions.length+1){
+        endGame();
     };
+   }
+
+   //  The decrement function.
+   function decrement() {
+
+     //  Decrease number by one.
+     number--;
+
+     //  Show the number in the #show-number tag.
+     $("#timer").html("<h2>" + number + "</h2>");
+
+
+     //  Once number hits zero...
+     if (number === -1) {
+
+       //  ...run the stop function.
+       stop();
+
+     }
+   }
+
+   //  The stop function
+   function stop() {
+
+     //  Clears our intervalId
+     //  We just pass the name of the interval
+     //  to the clearInterval function.
+     clearInterval(intervalId);
+    
+   }
+
+   //  Execute the run function.
+
+    // function timer(){
+    // var timerId = setInterval(countdown, 1000); //uses coundown to decrease time by 1 every second
+    // var timeLeft = 10;  //sets timer to 10units
+    
+    // //if time is >0, timer decreases by 1
+    // function countdown() {
+    
+    //     if (timeLeft <0 ) {
+    //         clearTimeout(timerId);
+            
+    //     } else {
+    //         $("#timer").text(timeLeft + ' seconds remaining');
+    //         timeLeft--;
+    //     }
+    // }
+    // };
     
     //loop through questions
     function showQuestion(){
-        timer();
-    
+        number =6;
+    run();
         var arr = [questions[count].correctAnswer, questions[count].incorrect1, questions[count].incorrect2, questions[count].incorrect3];
-    console.log('arr', arr)
+  
     shuffle(arr);
-           
-        $("#questionArea").text(questions[count].question);
-    
-        console.log("shuf0" + arr[0]);
-        console.log("shuf1" + arr[1]);
-        console.log("shuf2" + arr[2]);
-        console.log("shuf3" + arr[3]);
-    
         
-    for (i=0; i<questions.length; i++){
         $("#questionArea").text(questions[count].question);
+
         $("#answer1").text(arr[0]);
         $("#answer2").text(arr[1]); 
         $("#answer3").text(arr[2]);
         $("#answer4").text(arr[3]);
-        console.log(questions[count].question);
-        console.log(questions[count].correctAnswer);
+    //Score Game
+    
+    
+    if(arr[0]===questions[count].correctAnswer){
+        $("#answer1Button").click(function(){
+        points++;
+        $("#points").text(points);
+        nextQuestion();
+    });
     }
+    else if(arr[0]!==questions[count].correctAnswer){
+    $("#answer1Button").click(function(){
+        wrong++;
+        $("#wrong").text(wrong);
+    nextQuestion();
+    
+    });
     }
+    if(arr[1]===questions[count].correctAnswer){
+        // console.log("ans2but");
+        $("#answer2Button").click(function(){
+            // console.log("click2");
+            points++
+            $("#points").text(points);
+            nextQuestion();
+            });
+    }
+    else if(arr[1]!==questions[count].correctAnswer){
+        $("#answer2Button").click(function(){
+            wrong++;
+            $("#wrong").text(wrong);
+            nextQuestion();
+    });
+    }
+    if(arr[2]===questions[count].correctAnswer){
+        // console.log("ans3but");
+        $("#answer3Button").click(function(){
+            // console.log("click3");
+            points++
+            $("#points").text(points);
+            nextQuestion();
+            });
+    }
+    else if(arr[2]!==questions[count].correctAnswer){
+        $("#answer3Button").click(function(){
+            wrong++;
+            $("#wrong").text(wrong);
+            nextQuestion();
+    });
+    }
+    if(arr[3]===questions[count].correctAnswer){
+        // console.log("ans4but");
+        $("#answer4Button").click(function(){
+            // console.log("click4");
+            points++
+            $("#points").text(points);
+            nextQuestion();
+            });
+    }
+    else if(arr[3]!==questions[count].correctAnswer){
+        $("#answer4Button").click(function(){
+            wrong++;
+            $("#wrong").text(wrong);
+            nextQuestion();
+    });
+    }
+    console.log(count);
+    console.log(questions.length);
+    
+    if (count === questions.length){
+        endGame();
+    }
+    
+    }
+    //increases the count to show the next question in the array, applies timer
     function nextQuestion(){
-        count++
+        count++;
         showQuestion();
-        // if (count === questions.length){
-        //     // endGame();
-        // }
+        // timer();
+        
     }
     
     function startGame() {
         showQuestion();
-        holdQuestion = setInterval(nextQuestion, 12000);
+        holdQuestion = setInterval(nextQuestion, 6000);
     }
     
+
+
     //shuffle answers to appear on random buttons
-    
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
       
@@ -125,80 +249,20 @@ $(document).ready(function () {
         return array;
       }
     
-    //Score Game
-    
-    
-    if(arr[0]===questions[count].correctAnswer){
-        $("#answer1").click(function(){
-        points++;
-        $("#points").text(points);
-        showQuestion();
-    });
-    }
-    else if(arr[0]!==questions[count].correctAnswer){
-    $("#answer1").click(function(){
-        wrong++;
-        $("#wrong").text(wrong);
-    showQuestion();
-    
-    });
-    }
-    if(arr[1]===questions[count].correctAnswer){
-        // console.log("ans2but");
-        $("#answer2").click(function(){
-            // console.log("click2");
-            points++
-            $("#points").text(points);
-            showQuestion();
-            });
-    }
-    else if(arr[1]!==questions[count].correctAnswer){
-        $("#answer2").click(function(){
-            wrong++;
-            $("#wrong").text(wrong);
-        showQuestion();
-    });
-    }
-    if(arr[2]===questions[count].correctAnswer){
-        // console.log("ans3but");
-        $("#answer3").click(function(){
-            // console.log("click3");
-            points++
-            $("#points").text(points);
-            showQuestion();
-            });
-    }
-    else if(arr[2]!==questions[count].correctAnswer){
-        $("#answer3").click(function(){
-            wrong++;
-            $("#wrong").text(wrong);
-        showQuestion();
-    });
-    }
-    if(arr[3]===questions[count].correctAnswer){
-        // console.log("ans4but");
-        $("#answer4").click(function(){
-            // console.log("click4");
-            points++
-            $("#points").text(points);
-            showQuestion();
-            });
-    }
-    else if(arr[3]!==questions[count].correctAnswer){
-        $("#answer4").click(function(){
-            wrong++;
-            $("#wrong").text(wrong);
-        showQuestion();
-    });
-    }
+  
     
     //End Game
-    // function endGame(){
-    //     $("#questionArea").hide();
-    //     $("#answer1Button").hide();
-    //     $("#answer2Button").hide();
-    //     $("#answer3Button").hide();
-    //     $("#answer4Button").hide();
-    // };
+    function endGame(){
+        $("#questionArea").hide();
+        $("#answer1Button").hide();
+        $("#answer2Button").hide();
+        $("#answer3Button").hide();
+        $("#answer4Button").hide();
+        $("#timer").hide();
+        $("#answer1").hide();
+        $("#answer2").hide();
+        $("#answer3").hide();
+        $("#answer4").hide();
+    };
     
     }); //End Document.ready
